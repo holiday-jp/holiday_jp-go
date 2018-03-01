@@ -1,6 +1,7 @@
 package holiday
 
 import (
+	"reflect"
 	"testing"
 	"time"
 )
@@ -66,23 +67,17 @@ func TestIsHoliday(t *testing.T) {
 func TestHolidayName(t *testing.T) {
 	tests := []struct {
 		time time.Time
-		want *Holiday
+		want string
 		err  bool
 	}{
 		{
 			time.Date(1970, 1, 1, 1, 1, 1, 1, time.UTC),
-			&Holiday{
-				time.Date(1970, 1, 1, 1, 1, 1, 1, time.UTC),
-				"元日",
-			},
+			"元日",
 			false,
 		},
 		{
 			time.Date(1970, 1, 2, 1, 1, 1, 1, time.UTC),
-			&Holiday{
-				time.Date(1970, 1, 2, 1, 1, 1, 1, time.UTC),
-				"",
-			},
+			"",
 			true,
 		},
 	}
@@ -95,7 +90,7 @@ func TestHolidayName(t *testing.T) {
 		if test.err && err == nil {
 			t.Fatalf("should be error for %v but not:", test.time)
 		}
-		if got != nil && *got != *test.want {
+		if got != "" && got != test.want {
 			t.Fatalf("want %q, but %q:", test.want, got)
 		}
 	}
@@ -105,49 +100,64 @@ func TestBetween(t *testing.T) {
 	tests := []struct {
 		t0   time.Time
 		t1   time.Time
-		want []*Holiday
+		want Holidays
 	}{
 		{
 			time.Date(1970, 1, 1, 1, 1, 1, 1, time.UTC),
 			time.Date(1970, 1, 1, 1, 1, 1, 1, time.UTC),
-			[]*Holiday{
-				&Holiday{
-					time.Date(1970, 1, 1, 1, 1, 1, 1, time.UTC),
-					"元日",
+			Holidays{
+				"1970-01-01": Holiday{
+					"date":    "1970-01-01",
+					"week":    "木",
+					"week_en": "Thursday",
+					"name":    "元日",
+					"name_en": "New Year's Day",
 				},
 			},
 		},
 		{
 			time.Date(1970, 1, 1, 1, 1, 1, 1, time.UTC),
 			time.Date(1970, 1, 2, 1, 1, 1, 1, time.UTC),
-			[]*Holiday{
-				&Holiday{
-					time.Date(1970, 1, 1, 1, 1, 1, 1, time.UTC),
-					"元日",
+			Holidays{
+				"1970-01-01": Holiday{
+					"date":    "1970-01-01",
+					"week":    "木",
+					"week_en": "Thursday",
+					"name":    "元日",
+					"name_en": "New Year's Day",
 				},
 			},
 		},
 		{
 			time.Date(1970, 1, 1, 1, 1, 1, 1, time.UTC),
 			time.Date(1970, 1, 14, 1, 1, 1, 1, time.UTC),
-			[]*Holiday{
-				&Holiday{
-					time.Date(1970, 1, 1, 1, 1, 1, 1, time.UTC),
-					"元日",
+			Holidays{
+				"1970-01-01": Holiday{
+					"date":    "1970-01-01",
+					"week":    "木",
+					"week_en": "Thursday",
+					"name":    "元日",
+					"name_en": "New Year's Day",
 				},
 			},
 		},
 		{
 			time.Date(1970, 1, 1, 1, 1, 1, 1, time.UTC),
 			time.Date(1970, 1, 15, 1, 1, 1, 1, time.UTC),
-			[]*Holiday{
-				&Holiday{
-					time.Date(1970, 1, 1, 1, 1, 1, 1, time.UTC),
-					"元日",
+			Holidays{
+				"1970-01-01": Holiday{
+					"date":    "1970-01-01",
+					"week":    "木",
+					"week_en": "Thursday",
+					"name":    "元日",
+					"name_en": "New Year's Day",
 				},
-				&Holiday{
-					time.Date(1970, 1, 15, 1, 1, 1, 1, time.UTC),
-					"成人の日",
+				"1970-01-15": Holiday{
+					"date":    "1970-01-15",
+					"week":    "木",
+					"week_en": "Thursday",
+					"name":    "成人の日",
+					"name_en": "Coming of Age Da",
 				},
 			},
 		},
@@ -159,12 +169,14 @@ func TestBetween(t *testing.T) {
 		if len(got) != len(test.want) {
 			t.Fatalf("want %q, but %q:", test.want, got)
 		}
-		for i, gotV := range got {
-			if gotV == nil {
-				t.Fatalf("want %q, but nil:", *test.want[i])
-			}
-			if *gotV != *test.want[i] {
-				t.Fatalf("want %v, but %v:", *test.want[i], *gotV)
+		if reflect.DeepEqual(got, test.want) {
+			for k, v := range got {
+				vw := test.want[k]
+				for k, v := range v {
+					if vw[k] != v {
+						t.Fatalf("\nwant %q,\nbut  %q:", test.want, got)
+					}
+				}
 			}
 		}
 	}
