@@ -10,7 +10,7 @@
 ## Installing
 
 ```
-& go get github.com/ieee0824/holiday_jp-go
+$ go get github.com/ieee0824/holiday_jp-go
 ```
 
 ## Example
