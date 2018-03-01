@@ -34,7 +34,7 @@ IsHoliday function checks whether the specified date is a holiday.
 
 ### `HolidayName(t time.Time) (string, error)`
 
-HolidayName function returns Holiday struct pointer.
+HolidayName function returns Holiday name string.
 
 ### `Between(t0, t1 time.Time) Holidays`
 

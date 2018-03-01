@@ -107,7 +107,7 @@ func IsHoliday(t time.Time) bool {
 	return ok
 }
 
-// HolidayName function returns Holiday struct pointer.
+// HolidayName function returns Holiday name string.
 func HolidayName(t time.Time) (string, error) {
 	holiday, ok := holidays[genDateStr(t)]
 	if !ok {
