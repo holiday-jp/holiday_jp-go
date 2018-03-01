@@ -25,7 +25,8 @@ if holiday.IsHoliday(time.Now()) {
 
 ### `New(t time.Time) (*Holiday, error)`
 
-New create a new Holiday
+New create a new Holiday.
+If `t` is not holiday, when return nil and error.
 
 ### `IsHoliday(t time.Time) bool`
 
