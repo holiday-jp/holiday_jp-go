@@ -23,14 +23,18 @@ if holiday.IsHoliday(time.Now()) {
 
 ## API
 
+### `New(t time.Time) (*Holiday, error)`
+
+New create a new Holiday
+
 ### `IsHoliday(t time.Time) bool`
 
 IsHoliday function checks whether the specified date is a holiday.
 
-### `HolidayName(t time.Time) (*Holiday, error)`
+### `HolidayName(t time.Time) (string, error)`
 
 HolidayName function returns Holiday struct pointer.
 
-### `Between(t0, t1 time.Time) []*Holiday`
+### `Between(t0, t1 time.Time) Holidays`
 
 Between acquires the holiday of the designated section.
