@@ -7,23 +7,28 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-yaml/yaml"
+	// embed datasheet/holidays.yml in go code.
 	_ "github.com/ieee0824/holiday_jp-go/statik"
+
+	"github.com/go-yaml/yaml"
 	"github.com/rakyll/statik/fs"
 )
 
+// Holiday struct holds holiday info.
+// This struct is read-only.
 type Holiday struct {
 	t    time.Time
 	name string
 }
 
-func New(name string, t time.Time) *Holiday {
+func new(name string, t time.Time) *Holiday {
 	return &Holiday{
 		t:    t,
 		name: name,
 	}
 }
 
+// Date returns the day of the holiday.
 func (h *Holiday) Date() *time.Time {
 	if h == nil {
 		return nil
@@ -31,6 +36,8 @@ func (h *Holiday) Date() *time.Time {
 	return &h.t
 }
 
+// Name returns name of the holiday.
+// It behaves in the same way as the String function.
 func (h *Holiday) Name() string {
 	if h == nil {
 		return ""
@@ -38,6 +45,7 @@ func (h *Holiday) Name() string {
 	return h.name
 }
 
+// String returns name of the holiday.
 func (h *Holiday) String() string {
 	if h == nil {
 		return ""
@@ -45,6 +53,7 @@ func (h *Holiday) String() string {
 	return h.name
 }
 
+// holidays holds the parse result of datasheet/holidays.yml.
 var holidays = map[string]string{}
 
 func init() {
@@ -68,22 +77,24 @@ func genDateStr(t time.Time) string {
 	return fmt.Sprintf("%d-%02d-%02d", y, m, d)
 }
 
+// IsHoliday function checks whether the specified date is a holiday.
 func IsHoliday(t time.Time) bool {
 	return holidays[genDateStr(t)] != ""
 }
 
+// HolidayName function returns Holiday struct pointer.
 func HolidayName(t time.Time) (*Holiday, error) {
 	name, ok := holidays[genDateStr(t)]
 	if !ok {
 		return nil, errors.New("There is no applicable holiday")
 	}
-	return New(name, t), nil
+	return new(name, t), nil
 }
 
 func Between(t0, t1 time.Time) []*Holiday {
 	ret := []*Holiday{}
 	for {
-		if !t1.After(t0) {
+		if !t1.After(t0) && !t0.Equal(t1) {
 			break
 		}
 		n, err := HolidayName(t0)
