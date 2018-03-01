@@ -12,6 +12,25 @@ import (
 	"github.com/rakyll/statik/fs"
 )
 
+type Holiday struct {
+	time.Time
+	Name string
+}
+
+func New(name string, t time.Time) *Holiday {
+	return &Holiday{
+		Time: t,
+		Name: name,
+	}
+}
+
+func (h *Holiday) String() string {
+	if h == nil {
+		return ""
+	}
+	return h.Name
+}
+
 var holidays = map[string]string{}
 
 func init() {
@@ -39,16 +58,16 @@ func IsHoliday(t time.Time) bool {
 	return holidays[genDateStr(t)] != ""
 }
 
-func HolidayName(t time.Time) (string, error) {
+func HolidayName(t time.Time) (*Holiday, error) {
 	name, ok := holidays[genDateStr(t)]
 	if !ok {
-		return "", errors.New("There is no applicable holiday")
+		return nil, errors.New("There is no applicable holiday")
 	}
-	return name, nil
+	return New(name, t), nil
 }
 
-func Between(t0, t1 time.Time) []string {
-	ret := []string{}
+func Between(t0, t1 time.Time) []*Holiday {
+	ret := []*Holiday{}
 	for {
 		if !t1.After(t0) {
 			break
