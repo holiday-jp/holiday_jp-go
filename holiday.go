@@ -91,6 +91,7 @@ func HolidayName(t time.Time) (*Holiday, error) {
 	return new(name, t), nil
 }
 
+// Between acquires the holiday of the designated section.
 func Between(t0, t1 time.Time) []*Holiday {
 	ret := []*Holiday{}
 	for {
