@@ -13,22 +13,36 @@ import (
 )
 
 type Holiday struct {
-	time.Time
-	Name string
+	t    time.Time
+	name string
 }
 
 func New(name string, t time.Time) *Holiday {
 	return &Holiday{
-		Time: t,
-		Name: name,
+		t:    t,
+		name: name,
 	}
+}
+
+func (h *Holiday) Date() *time.Time {
+	if h == nil {
+		return nil
+	}
+	return &h.t
+}
+
+func (h *Holiday) Name() string {
+	if h == nil {
+		return ""
+	}
+	return h.name
 }
 
 func (h *Holiday) String() string {
 	if h == nil {
 		return ""
 	}
-	return h.Name
+	return h.name
 }
 
 var holidays = map[string]string{}
