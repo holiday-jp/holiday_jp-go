@@ -36,7 +36,6 @@ func init() {
 
 // Holiday holds holiday info.
 type Holiday map[string]string
-type Holidays map[string]Holiday
 
 // New create a new Holiday.
 // If `t` is not holiday, when return nil and error.
@@ -94,6 +93,19 @@ func (h *Holiday) String() string {
 		return ""
 	}
 	return (*h)["name"]
+}
+
+type Holidays map[string]Holiday
+
+func (h *Holidays) Names() []string {
+	if h == nil {
+		return nil
+	}
+	ret := make([]string, 0, len(*h))
+	for _, v := range *h {
+		ret = append(ret, v.Name())
+	}
+	return ret
 }
 
 func genDateStr(t time.Time) string {
