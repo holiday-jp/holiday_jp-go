@@ -10,7 +10,7 @@ import (
 	"github.com/go-yaml/yaml"
 
 	// embed datasheet/holidays.yml in go code.
-	_ "github.com/ieee0824/holiday_jp-go/statik"
+	_ "github.com/holiday-jp/holiday_jp-go/statik"
 
 	"github.com/rakyll/statik/fs"
 )
