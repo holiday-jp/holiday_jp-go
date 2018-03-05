@@ -9,35 +9,16 @@
 
 ## Installing
 
-```
+```bash
 $ go get github.com/holiday-jp/holiday_jp-go
 ```
 
 ## Example
 
-```
+```go
 import "github.com/holiday-jp/holiday_jp-go"
 
 if holiday.IsHoliday(time.Now()) {
     fmt.Println("today is holiday!")
 }
 ```
-
-## API
-
-### `New(t time.Time) (*Holiday, error)`
-
-New create a new Holiday.
-If `t` is not holiday, when return nil and error.
-
-### `IsHoliday(t time.Time) bool`
-
-IsHoliday function checks whether the specified date is a holiday.
-
-### `HolidayName(t time.Time) (string, error)`
-
-HolidayName function returns Holiday name string.
-
-### `Between(t0, t1 time.Time) Holidays`
-
-Between acquires the holiday of the designated section.
