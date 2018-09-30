@@ -1,3 +1,3 @@
 [submodule "datasheet"]
 	path = datasheet
-	url = git@github.com:holiday-jp/holiday_jp.git
+	url = https://github.com/holiday-jp/holiday_jp.git
