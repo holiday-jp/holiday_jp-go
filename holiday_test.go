@@ -28,7 +28,7 @@ func TestGenDateStr(t *testing.T) {
 	for _, test := range tests {
 		got := genDateStr(test.time)
 		if test.want != got {
-			t.Fatal("want %q, but %q:", test.want, got)
+			t.Fatalf("want %q, but %q:", test.want, got)
 		}
 	}
 }
@@ -59,7 +59,7 @@ func TestIsHoliday(t *testing.T) {
 	for _, test := range tests {
 		got := IsHoliday(test.time)
 		if test.want != got {
-			t.Fatal("want %q, but %q:", test.want, got)
+			t.Fatalf("want '%t', but '%t':", test.want, got)
 		}
 	}
 }

@@ -1,6 +1,6 @@
 # holiday_jp-go
 
-[![GoDoc](https://godoc.org/github.com/holiday-jp/holiday_jp-go?status.svg)](https://godoc.org/github.com/holiday-jp/holiday_jp-go)
+[![GoDoc](https://godoc.org/github.com/holiday-jp/holiday_jp-go?status.svg)](https://godoc.org/github.com/holiday-jp/holiday_jp-go) [![test](https://github.com/holiday-jp/holiday_jp-go/workflows/test/badge.svg)](https://github.com/holiday-jp/holiday_jp-go/actions)
 
 🎌 Japanese holiday for Go
 
