@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-yaml/yaml"
+	"gopkg.in/yaml.v2"
 
 	// embed datasheet/holidays.yml in go code.
 	_ "github.com/holiday-jp/holiday_jp-go/statik"
