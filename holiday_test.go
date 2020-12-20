@@ -54,6 +54,11 @@ func TestIsHoliday(t *testing.T) {
 			time.Date(1970, 1, 2, 0, 0, 0, 0, time.UTC),
 			false,
 		},
+		{
+			// スポーツの日
+			time.Date(2020, 7, 23, 0, 0, 0, 0, time.UTC),
+			true,
+		},
 	}
 
 	for _, test := range tests {
