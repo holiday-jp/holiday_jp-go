@@ -49,7 +49,7 @@ func New(t time.Time) (*Holiday, error) {
 
 // Date returns the day of the holiday.
 func (h *Holiday) Date() (*time.Time, error) {
-	t, err := time.Parse(time.RFC3339, (*h)["date"]+" 00:00:00 +0000 UTC")
+	t, err := time.Parse("2006-01-02", (*h)["date"])
 	if err != nil {
 		return nil, err
 	}
