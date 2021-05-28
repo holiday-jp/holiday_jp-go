@@ -186,3 +186,15 @@ func TestBetween(t *testing.T) {
 		}
 	}
 }
+
+func TestHolidayDate(t *testing.T) {
+	for key, h := range holidays {
+		date, err := h.Date()
+		if err != nil {
+			t.Fatal(err)
+		}
+		if got := date.Format("2006-01-02"); got != key {
+			t.Fatalf("\nwant %s,\nbut  %s:", key, got)
+		}
+	}
+}
