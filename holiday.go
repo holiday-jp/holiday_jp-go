@@ -1,38 +1,10 @@
 package holiday
 
-// go:generate statik -src ./datasheet/holidays_detailed.yml
-
 import (
 	"errors"
 	"fmt"
 	"time"
-
-	"gopkg.in/yaml.v2"
-
-	// embed datasheet/holidays.yml in go code.
-	_ "github.com/holiday-jp/holiday_jp-go/statik"
-
-	"github.com/rakyll/statik/fs"
 )
-
-// holidays holds the parse result of datasheet/holidays.yml.
-var holidays = Holidays{}
-
-func init() {
-	fs, err := fs.New()
-	if err != nil {
-		panic(err)
-	}
-
-	f, err := fs.Open("/.")
-	if err != nil {
-		panic(err)
-	}
-
-	if err := yaml.NewDecoder(f).Decode(holidays); err != nil {
-		panic(err)
-	}
-}
 
 // Holiday holds holiday info.
 type Holiday map[string]string
