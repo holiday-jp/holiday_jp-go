@@ -16,7 +16,12 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v2
 
-      - name: Rub test
+      - name: Run test
         run: |
           go build -v .
           go test -v .
+
+      - name: Run generate test
+        run: |
+          go test -v .
+        working-directory: ./gen
